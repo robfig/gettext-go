@@ -177,6 +177,9 @@ func (p *Message) readString(r *lineReader) (msg string, err error) {
 func (p Message) String() string {
 	var buf bytes.Buffer
 	fmt.Fprintf(&buf, "%s", p.Comment.String())
+	if p.MsgContext != "" {
+		fmt.Fprintf(&buf, "msgctxt %s", encodePoString(p.MsgContext))
+	}
 	fmt.Fprintf(&buf, "msgid %s", encodePoString(p.MsgId))
 	if p.MsgIdPlural != "" {
 		fmt.Fprintf(&buf, "msgid_plural %s", encodePoString(p.MsgIdPlural))
